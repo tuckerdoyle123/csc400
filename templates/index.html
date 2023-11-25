@@ -6,46 +6,88 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
     crossorigin="anonymous">
     <title>Form</title>
+    <style>
+        .required-field::after{
+            content: "*(required)";
+            color: red;
+            padding-left: 5px;
+        }
+        .paragraph{
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+    </style>
 </head>
 <body>
-    <div class="container-lg">
+ 
+    <div class="container-lg mt-4">
         <div class="text-center">
-            <h2>Submit Your Request</h2>
-            <p class="lead">If you have any Questions before submitting, please email Rebecca Hedreen at 
-                <a href = "mailto: hedreenr1@southernct.edu">hedreenr1@southernct.edu</a>
+            <h2>Submit Your Information</h2>
+            <div class ="paragraph"><p class="lead">
+                Please check the <a href="https://fruehanp1.pythonanywhere.com/" target="_blank">SCSU Authors Citation Database</a>
+                and send us additions to the publications listed there. Search by author, keyword, or filter by department, etc.
+                If you have any Questions before submitting, please email Rebecca Hedreen at 
+                <a href = "mailto: hedreenr1@southernct.edu">hedreenr1@southernct.edu</a>.
             </p>
+            </div>
         </div>
-        <div class="row justify-content-center my-5">
+        <div class="row justify-content-center m-5">
 
             <div class="col-lg-6">
-                <form>
+                {% if error_message %}
+                <p style= "color: red;">{{error_message}}</p>
+                {% endif %}
+                <form id="submit_form" method="post" action="{{url_for("user_input")}}">
                     <div class="mb-3">
-                        <label for="name" class="form-label">Name:</p></label>
+                        <div class="required-field"><label for="name" class="form-label">Name:</label></div>
                         <input type="text" class="form-control" id="name" name ="name" placeholder="e.g. First Last" required>
                     </div>   
                     <div class="mb-3">
-                        <label for="email" class="form-label">Email:</label>
+                        <div class="required-field"><label for="email" class="form-label">Email:</label></div>
                         <input type="email" class="form-control" id="email" name ="email" placeholder="e.g. email@example.com" required>
                     </div> 
                     <div class="mb-3">
-                        <label for="department" class="form-label">Department:</label>
-                        <input type="text" class="form-control" id="department" name ="department">
+                        <div class="required-field"><label for="title" class="form-label">Title:</label></div>
+                        <input type="text" class="form-control" id="title" name ="title" required>
                     </div>
                     <div class="mb-3">
                         <label for="doi" class="form-label">Include DOI if Available:</label>
                         <input type="text" class="form-control" id="doi" name ="doi">
                     </div>
                     <div class="mb-3">
-                        <label for="title" class="form-label">Title:</label>
-                        <input type="text" class="form-control" id="title" name ="title">
+                        <label for="department" class="form-label">Department:</label>
+                        <input type="text" class="form-control" id="department" name ="department">
                     </div>
                     <div class="mb-3">
                         <label for="coauthor" class="form-label">Coauthors:</label>
                         <input type="text" class="form-control" id="coauthor" name ="coauthor" placeholder="e.g. First Last">
                     </div>
                     <div class="mb-3">
-                        <label for="studentauthor" class="form-label">Student Authors:</label>
-                        <input type="text" class="form-control" id="studentauthor" name ="studentauthor" placeholder="e.g. First Last">
+                        <label for="itemtype" class="form-label">Type of Document:</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="typeRadios" id="typeRadios1" value="journal-article" checked>
+                            <label class="form-check-label" for="typeRadios1">
+                            Journal Article
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="typeRadios" id="typeRadios2" value="proceedings-article">
+                            <label class="form-check-label" for="typeRadios2">
+                            Conference Paper
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="typeRadios" id="typeRadios3" value="book">
+                            <label class="form-check-label" for="typeRadios3">
+                            Book 
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="typeRadios" id="typeRadios4" value="book-chapter">
+                            <label class="form-check-label" for="typeRadios4">
+                            Book Section
+                            </label>
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="citation" class="form-label">Citations:</label>
@@ -55,22 +97,21 @@
                     <div class="mb-3">
                         <label for="peerreview" class="form-label">Peer Review:</label>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+                            <input class="form-check-input" type="radio" name="peergridRadios" id="gridRadios1" value="Peer Reviewed" checked>
                             <label class="form-check-label" for="gridRadios1">
                             Peer Reviewed
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+                            <input class="form-check-input" type="radio" name="peergridRadios" id="gridRadios2" value="Not Peer Reviewed">
                             <label class="form-check-label" for="gridRadios2">
                             Not Peer-Reviewed
                             </label>
                         </div>
                     </div>
                         
-                    
                     <div class="mb-3">
-                      <button class="btn btn-primary" type="submit">Submit form</button>
+                      <button class="btn btn-primary" type="submit" name="submit">Submit form</button>
                     </div>
                 </form>
             </div>
