@@ -94,7 +94,9 @@ print("Runtime crossRefDictionaryList: ", end - start)
 
 # Gathers All data currently in Zotero to make sure there are no duplicates being populated
 start = time.time()
-zot = zotero.Zotero('4421509','group','YWq3eh8BBDE9adJY66lDvrzd')
+#First value is the group ID, Second indicates it is a group, Third is API Key from Zotero
+#Example: zot = zotero.Zotero('12345678','group','********')
+zot = zotero.Zotero('','','')
 items = zot.everything(zot.top())
 end = time.time()
 print("items Creation Runtime: ", end - start)
