@@ -7,8 +7,9 @@ from crossref_commons.types import EntityType, OutputType
 from functions import *
 
 {
-  "User-Agent": "<<polite user Daniel Ramirez; including mailto:ramirezd16@southernct.edu>>",
-  "Mailto": "<<ramirezd16@southernct.edu>>"
+  "Crossref-Plus-API-Token": "<<Plus API token, for Plus users only>>",
+  "User-Agent": "<<polite user agent; including (First Name) (Last Name): **********@southernct.edu>>",
+  "(First Name) (Last Name)": "<<**********@southernct.edu>>"
 }
 
 app = Flask(__name__)
