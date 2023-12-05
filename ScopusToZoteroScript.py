@@ -96,7 +96,7 @@ print("Runtime crossRefDictionaryList: ", end - start)
 start = time.time()
 #First value is the group ID, Second indicates it is a group, Third is API Key from Zotero
 #Example: zot = zotero.Zotero('12345678','group','********')
-zot = zotero.Zotero('','','')
+zot = zotero.Zotero('4421509','group','YWq3eh8BBDE9adJY66lDvrzd')
 items = zot.everything(zot.top())
 end = time.time()
 print("items Creation Runtime: ", end - start)
