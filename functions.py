@@ -8,7 +8,7 @@ from crossref_commons.types import EntityType, OutputType
 
 #First value is the group ID, Second indicates it is a group, Third is API Key from Zotero
 #Example: zot = zotero.Zotero('12345678','group','********')
-zot = zotero.Zotero('','','')
+zot = zotero.Zotero('4421509','group','YWq3eh8BBDE9adJY66lDvrzd')
 def book_chapter(bookchapter_dictionary):
     bookchapter_template = zot.item_template('book')
     try:    
